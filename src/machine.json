@@ -1,0 +1,88 @@
+{
+  "key": "experience",
+  "type": "parallel",
+  "states": {
+    "user": {
+      "initial": "anonymous",
+      "states": {
+        "anonymous": {
+          "on": {
+            "login": "authenticated"
+          }
+        },
+        "authenticated": {}
+      }
+    },
+    "client": {
+      "initial": "unknown",
+      "states": {
+        "unknown": {
+          "on": {
+            "contact": "potential"
+          }
+        },
+        "potential": {}
+      }
+    },
+    "device": {
+      "initial": "unknown",
+      "states": {
+        "unknown": {
+          "on": {
+            "register": "registered"
+          }
+        },
+        "registered": {}
+      }
+    },
+    "ui": {
+      "states": {
+        "foreground": {
+          "type": "parallel",
+          "on": {
+            "deactivate": "background"
+          },
+          "states": {
+            "security": {
+              "initial": "none",
+              "states": {
+                "none": {
+                  "on": {
+                    "chanllenged": "strong"
+                  }
+                },
+                "strong": {
+                  "on": {
+                    "refreshed": "strong",
+                    "expired": "none"
+                  }
+                }
+              }
+            },
+            "navigation": {
+              "initial": "wellcome",
+              "states": {
+                "wellcome": {
+                  "on": {
+                    "login": "authenticated"
+                  }
+                },
+                "authenticated": {}
+              }
+            }
+          }
+        },
+        "background": {
+          "type": "parallel",
+          "on": {
+            "activate": "foreground"
+          },
+          "states": {
+            "foreground": {},
+            "background": {}
+          }
+        }
+      }
+    }
+  }
+}
